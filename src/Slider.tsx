@@ -53,7 +53,7 @@ const Slider: React.FC = () => {
       longDescription:
         "A progressive web app featuring 7-day forecasts, real-time alerts, location-based suggestions, and offline capabilities.",
       image: img1, // import edilmiş resim
-      github: "https://github.com/username/weather-advanced",
+   
       status: "completed",
       featured: false,
       stats: { stars: 23, views: 567, commits: 93 },
