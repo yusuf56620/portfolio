@@ -2,10 +2,17 @@ import { useState, useEffect, useRef } from "react";
 import { FaGithub, FaCode, FaStar, FaEye } from "react-icons/fa";
 import "./Slider.css";
 
-// 🔹 Resim importları (assets klasöründen)
+// 📌 Resim importları
 import img1 from "./assets/1.png";
+import img2 from "./assets/2.png";
 import img3 from "./assets/3.png";
+import img4 from "./assets/4.png";
+import img5 from "./assets/5.png";
 import img6 from "./assets/6.png";
+import arkaplan from "./assets/arkaplan.png";
+import fotograf from "./assets/fotograf.jpg";
+import mainBackGround from "./assets/mainBackGround.jpg";
+import reactLogo from "./assets/react.svg";
 
 interface Project {
   id: string;
@@ -38,8 +45,8 @@ const Slider: React.FC = () => {
       description:
         "An interactive platform that lets you watch movies in sync with your friends.",
       longDescription:
-        "CineFlow takes the experience of watching movies with friends to the next level with real-time chat, synchronized video playback, and user rooms.",
-      image: img6, // import edilmiş resim
+        "CineFlow takes the experience of watching movies with friends to the next level with real-time chat, synchronized video playback, and user rooms. Using WebSocket technology, it ensures perfect synchronization.",
+      image: img6,
       status: "completed",
       featured: true,
       stats: { stars: 45, views: 1200, commits: 128 },
@@ -49,11 +56,11 @@ const Slider: React.FC = () => {
       name: "WeatherApp Advanced",
       tech: ["React", "TypeScript", "OpenWeather API", "PWA"],
       description:
-        "A user-friendly weather app delivering real-time weather data.",
+        "A user-friendly weather app delivering real-time weather data to help with daily planning.",
       longDescription:
         "A progressive web app featuring 7-day forecasts, real-time alerts, location-based suggestions, and offline capabilities.",
-      image: img1, // import edilmiş resim
-   
+      image: img1,
+      github: "https://github.com/username/weather-advanced",
       status: "completed",
       featured: false,
       stats: { stars: 23, views: 567, commits: 93 },
@@ -66,7 +73,7 @@ const Slider: React.FC = () => {
         "An AI-powered assistant for developers to write and debug code.",
       longDescription:
         "Using machine learning and natural language processing, this assistant suggests code, helps debug, and improves overall code quality.",
-      image: img3, // import edilmiş resim
+      image: img3,
       status: "planned",
       featured: true,
       stats: { stars: 0, views: 0, commits: 0 },
@@ -267,10 +274,7 @@ const Slider: React.FC = () => {
           className="modal-overlay"
           onClick={() => setSelectedProject(null)}
         >
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button
               className="modal-close"
               onClick={() => setSelectedProject(null)}
@@ -287,14 +291,12 @@ const Slider: React.FC = () => {
               <div className="modal-info">
                 <h2>{selectedProject.name}</h2>
                 <div className="modal-stats">
-                  {Object.entries(selectedProject.stats).map(
-                    ([key, value]) => (
-                      <div key={key} className="modal-stat">
-                        <span className="stat-label">{key}</span>
-                        <span className="stat-value">{value}</span>
-                      </div>
-                    )
-                  )}
+                  {Object.entries(selectedProject.stats).map(([key, value]) => (
+                    <div key={key} className="modal-stat">
+                      <span className="stat-label">{key}</span>
+                      <span className="stat-value">{value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
