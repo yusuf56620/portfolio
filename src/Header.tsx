@@ -11,8 +11,7 @@ const Header: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Detect active section
-      const sections = ["hero", "about", "skills", "projects", "debug", "contact"];
+      const sections = ["hero", "skills", "projects", "contact"];
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -31,21 +30,13 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     closeMenu();
   };
@@ -54,6 +45,7 @@ const Header: React.FC = () => {
     { id: "hero", label: "About Me", icon: "👨‍💻" },
     { id: "skills", label: "Skills", icon: "⚡" },
     { id: "projects", label: "Projects", icon: "🚀" },
+    { id: "contact", label: "Contact", icon: "📩" },
   ];
 
   return (
@@ -67,14 +59,16 @@ const Header: React.FC = () => {
           </span>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className="desktop-nav">
           <ul className="nav-links">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                  className={`nav-link ${
+                    activeSection === item.id ? "active" : ""
+                  }`}
                 >
                   <span className="nav-icon">{item.icon}</span>
                   <span className="nav-text">{item.label}</span>
@@ -86,11 +80,7 @@ const Header: React.FC = () => {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
-          className="mobile-menu-btn"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
+        <button className="mobile-menu-btn" onClick={toggleMenu}>
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
 
@@ -107,14 +97,16 @@ const Header: React.FC = () => {
             </div>
 
             <ul className="mobile-nav-links">
-              {navItems.map((item, index) => (
+              {navItems.map((item, i) => (
                 <li
                   key={item.id}
-                  style={{ "--delay": `${index * 0.1}s` } as React.CSSProperties}
+                  style={{ "--delay": `${i * 0.1}s` } as React.CSSProperties}
                 >
                   <button
                     onClick={() => scrollToSection(item.id)}
-                    className={`mobile-nav-link ${activeSection === item.id ? "active" : ""}`}
+                    className={`mobile-nav-link ${
+                      activeSection === item.id ? "active" : ""
+                    }`}
                   >
                     <span className="mobile-nav-icon">{item.icon}</span>
                     <span className="mobile-nav-text">{item.label}</span>
@@ -129,7 +121,6 @@ const Header: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Navigation Overlay */}
         {isOpen && <div className="mobile-nav-overlay" onClick={closeMenu} />}
       </div>
     </header>
