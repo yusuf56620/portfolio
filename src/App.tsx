@@ -1,10 +1,19 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import Skills from "./Skills";
 import Slider from "./Slider";
 import "./index.css";
 import "./App.css";
-import { FaGithub, FaInstagram, FaLinkedin, FaRocket, FaEnvelope } from "react-icons/fa";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaRocket,
+  FaEnvelope,
+} from "react-icons/fa";
+
+// ✅ Fotoğrafı import et
+import fotograf from "./assets/fotograf.jpg";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,8 +46,7 @@ function App() {
             </div>
 
             <h1 className="hero-title">
-              Hello, I'm{" "}
-              <span className="tech-name">Yusuf</span>
+              Hello, I'm <span className="tech-name">Yusuf</span>
             </h1>
 
             <p className="hero-subtitle">
@@ -83,7 +91,7 @@ function App() {
                 <FaGithub />
               </a>
               <a
-                href="https://www.linkedin.com/in/yusuf-kapukara-aa17ab363?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app /"
+                href="https://www.linkedin.com/in/yusuf-kapukara-aa17ab363?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -113,8 +121,9 @@ function App() {
           <div className="hero-image">
             <div className="profile-container">
               <div className="profile-glow"></div>
+              {/* ✅ Fotoğrafı import ile kullan */}
               <img
-                src="/src/assets/fotograf.jpg"
+                src={fotograf}
                 alt="Yusuf - Fullstack Developer"
                 className="profile-img"
               />
