@@ -2,10 +2,17 @@ import { useState, useEffect, useRef } from "react";
 import { FaGithub, FaCode, FaStar, FaEye } from "react-icons/fa";
 import "./Slider.css";
 
-// === Görselleri import et ===
+// 📌 Resim importları
 import img1 from "./assets/1.png";
+import img2 from "./assets/2.png";
 import img3 from "./assets/3.png";
+import img4 from "./assets/4.png";
+import img5 from "./assets/5.png";
 import img6 from "./assets/6.png";
+import arkaplan from "./assets/arkaplan.png";
+import fotograf from "./assets/fotograf.jpg";
+import mainBackGround from "./assets/mainBackGround.jpg";
+import reactLogo from "./assets/react.svg";
 
 interface Project {
   id: string;
@@ -129,7 +136,7 @@ const Slider: React.FC = () => {
 
   return (
     <div className="projects-container">
-      {/* === Slider ana kısım === */}
+      {/* Main Slider */}
       <div className="slider-container">
         <div
           className="slider-track"
@@ -142,6 +149,8 @@ const Slider: React.FC = () => {
               style={{ backgroundImage: `url(${project.image})` }}
             >
               <div className="slide-overlay" />
+
+              {/* Project Status Badge */}
               <div
                 className="status-badge"
                 style={{ backgroundColor: getStatusColor(project.status) }}
@@ -149,12 +158,14 @@ const Slider: React.FC = () => {
                 {getStatusText(project.status)}
               </div>
 
+              {/* Featured Badge */}
               {project.featured && (
                 <div className="featured-badge">
                   <FaStar /> Featured
                 </div>
               )}
 
+              {/* Project Content */}
               <div className="slide-content">
                 <div className="project-header">
                   <h2 className="project-title">{project.name}</h2>
@@ -208,7 +219,7 @@ const Slider: React.FC = () => {
           ))}
         </div>
 
-        {/* Kontroller */}
+        {/* Navigation Controls */}
         <div className="slider-controls">
           <button className="slider-btn prev" onClick={prevSlide}>
             ❮
@@ -218,6 +229,7 @@ const Slider: React.FC = () => {
           </button>
         </div>
 
+        {/* Play/Pause Button */}
         <button
           className="play-pause-btn"
           onClick={() => setIsAutoPlaying(!isAutoPlaying)}
@@ -226,7 +238,102 @@ const Slider: React.FC = () => {
         </button>
       </div>
 
-      {/* Thumbnail + Modal kısımları aynı kaldı */}
+      {/* Slide Indicators */}
+      <div className="slide-indicators">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            className={`indicator ${index === currentIndex ? "active" : ""}`}
+            onClick={() => goToSlide(index)}
+          >
+            <span className="indicator-progress" />
+          </button>
+        ))}
+      </div>
+
+      {/* Project Thumbnails */}
+      <div className="project-thumbnails">
+        {projects.map((project, index) => (
+          <div
+            key={project.id}
+            className={`thumbnail ${index === currentIndex ? "active" : ""}`}
+            onClick={() => goToSlide(index)}
+            style={{ backgroundImage: `url(${project.image})` }}
+          >
+            <div className="thumbnail-overlay">
+              <h4>{project.name}</h4>
+              <span className="thumbnail-tech">{project.tech[0]}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Project Detail Modal */}
+      {selectedProject && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close"
+              onClick={() => setSelectedProject(null)}
+            >
+              ✕
+            </button>
+
+            <div className="modal-header">
+              <img
+                src={selectedProject.image}
+                alt={selectedProject.name}
+                className="modal-image"
+              />
+              <div className="modal-info">
+                <h2>{selectedProject.name}</h2>
+                <div className="modal-stats">
+                  {Object.entries(selectedProject.stats).map(([key, value]) => (
+                    <div key={key} className="modal-stat">
+                      <span className="stat-label">{key}</span>
+                      <span className="stat-value">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="modal-body">
+              <div className="modal-tech">
+                <h3>Technologies</h3>
+                <div className="tech-list">
+                  {selectedProject.tech.map((tech, i) => (
+                    <span key={i} className="tech-item">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="modal-description">
+                <h3>Project Description</h3>
+                <p>{selectedProject.longDescription}</p>
+              </div>
+
+              <div className="modal-actions">
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal-btn github"
+                  >
+                    <FaGithub /> View on GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
