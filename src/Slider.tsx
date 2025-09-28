@@ -49,7 +49,7 @@ const Slider: React.FC = () => {
         "A fully featured e-commerce platform including product management, cart system, payment integration, user management, and an admin panel. It comes with a responsive design and PWA support.",
       image:
         "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80",
-      github: "https://github.com/username/ecommerce",
+     
       status: "completed",
       featured: true,
       stats: { stars: 78, views: 2100, commits: 234 },
